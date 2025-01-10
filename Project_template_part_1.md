@@ -26,10 +26,59 @@
 
 ### 3. Определение доменов и границы контекстов
 
-Домен 1: управление модулями отопления в домах
-Домен 2: мониторинг температуры в домах
-Поддомен 2.1: учета температуры
-Поддомен 2.2: отчет \ визуализация текущей температуры
+1. Домен: Умный дом (Smart Home)
+Поддомены:
+1.1. Управление отоплением (Heating Management):
+- Управление температурой в помещениях.
+- Взаимодействие с датчиками температуры и исполнительными механизмами (например, обогревателями).
+1.2. Управление освещением (Lighting Management):
+- Включение/выключение освещения.
+- Настройка яркости, цветовой температуры.
+1.3. Управление воротами (Gate Management):
+- Открытие/закрытие автоматических ворот.
+- Реагирование на внешние команды.
+1.4. Управление видеонаблюдением (Video Surveillance Management):
+- Управление камерами наблюдения.
+- Потоковое видео, записи, обработка видео-потока.
+
+2. Домен: Аналитика и отчеты (Analytics and Reporting)
+Поддомены:
+2.1. Обработка данных (Data Processing):
+- Обработка данных, полученных с устройств, для создания аналитических отчетов.
+2.2. Хранение данных (Data Storage):
+- Использование OLAP-хранилища (например, Clickhouse или ScyllaDB) для долговременного хранения и анализа больших объемов данных.
+2.3. Генерация отчетов (Report Generation):
+- Формирование отчетов и аналитических выводов на основе собранных данных.
+
+3. Домен: Взаимодействие с пользователями (User Interaction)
+Поддомены:
+3.1. Интерфейс для пользователей (User Interface):
+- Веб-интерфейс для взаимодействия с системой (управление устройствами, просмотр отчетов и состояния).
+3.2. Уведомления для пользователей (User Notifications):
+- Отправка уведомлений о событиях в системе (например, изменение состояния устройства или системы).
+
+4. Домен: Интеграция с устройствами (Device Integration)
+Поддомены:
+4.1. Датчики (Sensors):
+- Все устройства, собирающие информацию о состоянии (температура, влажность и т.д.).
+4.2. Устройства управления (Actuators):
+- Устройства, такие как приводы для ворот, освещения и отопления, которые выполняют действия по запросу.
+4.3. Видеонаблюдение (Surveillance):
+- Видеокамеры, системы записи и потокового видео.
+
+5. Домен: Асинхронная коммуникация (Asynchronous Communication)
+Поддомены:
+5.1. Межсервисная коммуникация (Inter-service Communication):
+- Обработка событий и сообщений между сервисами через Kafka.
+5.2. Публикация и подписка на события (Event Publishing and Subscribing):
+- Отправка и получение событий в реальном времени для синхронизации между микросервисами.
+
+6. Домен: Легаси-система (Legacy System)
+Поддомены:
+6.1. Бизнес-логика (Business Logic):
+- Основная логика работы с пользователями, платежами и другими функциями, которые были реализованы в старой версии системы.
+6.2. Интеграция с новыми сервисами (Integration with New Services):
+- Логика и механизмы, которые обеспечивают плавный переход и взаимодействие между старой системой и новыми микросервисами через Антикоррупционный слой (ACL).
 
 ### **4. Проблемы монолитного решения**
 
@@ -66,24 +115,284 @@
 
 ### 5. Визуализация контекста системы — диаграмма С4
 
-[диаграмму контекста в модели C4](https://www.plantuml.com/plantuml/uml/fL91QzH06BtdLqptb49tS-d9Ks7n8XMYnPjGqitO1fB9CZFHUckwWaA5NWGzY2B-WRWO6xic-nU--KU-psximHmKBvdC-zwyzxvlPi_OIDiYIxsjM3v9b1JJtL2SM3itTu90HyycnuazAOuA8_KiLrOgEvdbMJ1F8yN7niR6QN8KJ7V78KEFxky7MMIirDvMecPf4Sj2fomAok6K5KxjPCw6NYYroPNFqZjYH1-fevLxJLTObrIvSwfvF-BQPrgxCwfe2UIIQdSkg0EXepMjG6kfmVU7e4OmaGL0EjjGGKGHL42iwnOeBKRRti5p1CryysjXcq_Kk793huHRzAwzYRiSzEM8z1veoorG0mR_rJTX6a0TVUlf0aibxaLF8-5A4UR67cjvy63_Tvx3kwVMDrAPNBFk6-B8Bt7qUhYJ2xQd3wZzCQElsBRKkWksxGQFKmrZxw5CD_TmEunthgHrVoUO1IlwKB-crMDQGXC_0-FO-Vih46WB04fNWkdqPGo5biaelm3mtPNRoCVn-c2tatbBrKtBxXKr_6J-hMaMxSLwyV-SuvvKCPxsJm00)
+[диаграмму контекста в модели C4](https://www.plantuml.com/plantuml/uml/lLFDRjD06BpxARO-fHAjBprnQecG2Yh2rE4SEV7IMl9FPAzfAuIK7wGYfQ8IGe830Y5U8AaQahQnymgxRyJiOkEWMcqvG0zrTh_vPhxvFDwCcHsnnFUq5OU-S0DAwXicsMUi4zytZCW-MDzpsNxIIc8QjSE0qO2jjqFVw7Xs8DlMOkPuRikeRwoPykhvant3jsD68st53TfUuj0ayYGf8CswP3XawnqbM5stCKJq2w6PD8h3e2R5xn6TV-KPln8dV8hd6H-9Ff_8iovht_b2TFc8d-7cb4z4d_0CW8ml-1LWAP_X_vpm6L50403KpQ6AQGuehYIl6A0qq5SrwmXM_EQ3C0aSEpgg7T1Mq-vqcgtyGYg_H-zuJR7Ee9Nn7uMUlafUQGH_ltr9Wh97z33mXUXB0xlKRZDZku7zrIrBB-nECMTMMbfKRk0T4ODb-p1mGa0-4xtSMSOlY3YMzd2S4ZwMO3HDvHLy_Zca7xPSZyeHFgDpp6TACyNl2Qdq2QZxr3As0YSANUSV3u_Q7DrT0D-WbcByr_cBgiNg8VM_BH6CbYIAD8ZJoe3eXUjK3WjO_mRV18yHUMo_j34KCSEOxKNKUhPJ1kVX8Ql5D8X3bTyFAbl7QBsiZjnGoNz1xLgOpt5CUIg6KZQhR9U1qxHTwkKVJ9wrJw9NhbuC9DqDMK37TgDXMg0gcSf0t4OsltDWbbNKfEMxgrp09GZcQWddOgY-uobE2YRUWXI9khQfGeTicOzogSBA_r4hLCeCVAoWkTlhBGKASaLwgvM_fTwaWPFutay0)
+
+```
+@startuml
+!define C4P https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master
+!includeurl C4P/C4_Context.puml
+!includeurl C4P/C4_Container.puml
+
+Person(user, "Пользователь", "Управляет отоплением и проверяет температуру")
+System_Boundary(web_app_boundary, "Веб-приложение") {
+    Container(web, "Веб-сайт", "React/HTML/CSS", "Позволяет пользователю управлять системой через браузер")
+    Container(mobile, "Мобильное приложение", "iOS/Android", "Позволяет пользователю управлять системой через смартфон")
+}
+System(system, "Система управления отоплением", "Монолитное приложение на Java с PostgreSQL")
+System_Ext(sensor, "Датчик температуры", "Отправляет данные о температуре")
+
+Rel(user, web, "Использует через браузер", "HTTPS")
+Rel(user, mobile, "Использует через мобильное приложение", "HTTPS")
+Rel(web, system, "Отправляет команды и запрашивает данные", "HTTP API")
+Rel(mobile, system, "Отправляет команды и запрашивает данные", "HTTP API")
+Rel(system, sensor, "Запрашивает данные о температуре", "HTTP")
+Rel(sensor, system, "Отправляет данные о температуре", "HTTP")
+@enduml
+```
 
 # Задание 2. Проектирование микросервисной архитектуры
 
 **Диаграмма контейнеров (Containers)**
 
-[диаграмму контейнеров в модели C4](https://www.plantuml.com/plantuml/uml/pLbVRzjK57_lfxZhKokITaDxucbRXj144HK5df0cB_5QQubTEKv7XP2QPgMRCXO98I71n3GG4e_zqsnUiZXVuTvlnFaTtpd9RaBSkiXiKbtRzvxp-vt_rxrH3om_QDIg2rSgzdt7jKNf-hhO2eBj-aUhgxxrS6NJ2ROQznfrsozxRc2xmKhPgwrkLoqNsuhre59rxgsMhXVNyUYhpzPMQrOziFs5AuvRhZOgTiElGYWjkLiY2HOfyLUseN9XOvTMrkv-_6smLBVTkkSNnAByMHwfVNKeGzaJQbzsvLivb5srnuzRQa-rnGU27aRoJBLaNpqLT1dYlJoHVLe_aA7gB4BKxxG_UQCw96LVo3Ew7SY1QikkaD5K5NWJ2bnfxQaCIMcBDzF68wWR4wgUgIU4zOrGJRgSOeNiBowFStEyuBQzuvJjswMAx-pO1EsEzoN9KKtIjqTCtk0tUKB2YuA5XtH316Uom7gDjiaicjW09lWrujUHwi0MClnloAmvcrl172fzUGJRglR_a4ZPgjc-1Lo_CiekXnQlF2OHp-IP6KjPm1U4V4sxXoInIK4BDj6Op1vne4l8QgCYhOkm6yyBsNclstxTSvUGnY3pGaR8708KmLN80TmpqPyOPeWCOopQeT39b5aqF-jY3NGToYx3UqqCw79SfEq3B22eZs8Ho3l2DpLNfuOFoOQ_PH-N8UDjGP7U0WqaEw9DRud03x0mN40l3oRy8hiZjz_o6cx5ydUNwdmFjd-Gn279RXCFAZqHkMxdmvMhYylYkmL1_vAIjMHjEvzOWVtGsgLzDzVl27t7HllJh3Cdwe1hL0SU0HljVz0aM4om80Xc2vPYUuN4YCgUvaDse_V7y21A5ioElOWLDZiaWlkUUeoGm7xIaEmbsXC4DEclhncqpsBQrrQkYYNv6xqv9IdDM7n4zexW118_OBNZxbTj3eX3h6VyXrW4xkqu899QIndnIBNefWTy40jUKBpC1do9O47ySu21DiWCw6cpY7K8VCqR5quirEkEmA8uGixqpoCuG3yIsjH9ChwBTQ1AoCF-y8L0t93yLx8B54cmzWaPHnwhcfey7UrFn1zCgr-yIY9PQDSV8Xh0cP2DIWP1kNtBSDcMRGMEkxbX-wYuxmLQWaXNYk7eKQn0FeVDTBnfyyx9H5DKQgnLz8CvI5b25oeo8DH2dfmRuIObx1o0sCvmzcE_NH0aRi4I-QdpeakRUxeG65hIuTznAhQtqV1tRATAmrOv1HdTJiokbYL6Uk_wvRdGe_Ui-zwcRzKIt1DvFokpdi9oEg-u09vgpVz6O1hoEGh0nL0nIbzkKEYff-Uc_i2w_m2JngUuYbArWG6PmVyjG_XcR2ebcjhuSH6cPmSCQQ3hhnvLkzY2OiAZ1lq_JZB2BFqrptK2pqzAYM5wNUb3NLS1Yfg0hinzACCxxc36Q8DGUgyhO2FvkcO7MtQZNX1Ct41bkLPrDt3AzLcWZdIN0AmGBeedCQ8A-nzpYs_3aSPadzWmmbb2bvoJbEvolS2vxvIfz7hk36ZmXT6mmzc3OeiR2FUQ-V7OILtHlAgrlK6EjJQ1yFErc-k2emLsuD49CS6e_dhtTBgXPjYwL7NA3xOyIjrlDigxL7I0mV1Yu9GytszimrvhrYwFc3TBQulnHI0sKVuGk0ZOaSDE4CSe9HhDABZZsOdTHuC9bHoQoZW9URBZwO1xU1o9wYcX-dvXOU4BkvgS94VpsaoliBbZ175sgsSa24AC8rjQSJtLqXFu-12QJFidvnpS0SOuSkK8HH-QBcZSmlGJJY4R9ZIMD8Z6ns_Lrfl7juqFoC-DmPhFNUa4cMDR9d4yMLsMC0n1boNB74WkIR0vAsGMQRR0h1BDzfK_QvOvJOuPaYz8IeVxVbSiSPDvpNUl-0YdVfGzVIZdwenboqXVT0ZTzZbHZKznwGuL98hHn_sKdkaZcgu4nhH5t6PHIzB397OXmEOP0uyk3IuIC1ytdEzGSecKpJentrlfpP6QVz9xZAzy5tGn4nvrZIcJqCLgWYadSq-1uEc3BHp69yYn4LMtp9a3Abc4Zu7nkQm8hybZdbRv8DBcyEge0zD6caRwT9twtMYUhvZ6SE8haXZxYXGIhabOPWt97vHPAVB7D3-LymPerfySeJ6szqEUlmRC6b8dCqYpYtUOgVEIFue_9W7crj7PAGJTIx8pvqbc9YmbLnv8hSmq82HN5cOoPgLaIioJdpcpNvYOAIeNHcO7pi3959OJA_Cab51waVpbpln8PqwCcKrYoCh18ZDCClcjJlwI_2rux0icbAJvkfaTv0tRhJHgrNy0)
+[диаграмму контейнеров в модели C4](https://www.plantuml.com/plantuml/uml/p5TVRzjK57_FfxZhKoUIXg4zyKIN8fW88f31w-GaTuarnuvifoL2I4rA2LFHAgOz8SG428d7XZQh-wVELxZ-HfpVSMAysHTJ5H3RmutllUUSt-_yEVVq7SytN7_OjqgtElAHQKjHkziGFTyVU6zNgwwniz4r_TwmDVIastPiNzh-HjlfLmUMOKEiulaTosnLQtSh3Mnz-c6zsZSyNxgbMwRTjeOTENGjAAKh3skamI0ZxiO09alD4TtiFtptSt_TaxRdk6MnffwhesWIJLMWpaKqKNDrgHPg7ktozbwq6ns8DmHjXkeasbCNqRU2bWNErU_gWkvVgI0wN8Eg7qa-EOaEISj4g1Fwl59NqO6Q2nNcci198B3ItMCLaD4z5YR18vXBAOsUHay8wvc8nhGSuuQwMBkTvcOw_fRSDjjogzPnpMr9qEux3mHP6fEzNM9oXb-axqXK12iFw8C8QbdW_XBjc5cC8G0c-1doSKXtoHSg-7V8rCrkpo-WSa7ovDleu7z8f6tqfMi0r_UCSiwfnJTdfEAfEaddqit1buKw9Ua5QHnJqe9DcD9vJXne2TXiMA5xE0snNxuvxuPqFSTUHnc3p0iLed88K8XGeGRmpKIVCSm05GOigu2oJL1crRmtnntOcj8Hu9qI0rfc5HA_mWM2-bMi0dL7-79hDJTzI3VYJRTeMG0ltPec8h10kaCIkYG2NyF3204TxhyI5pKd-gkuttE6TiTmH-iUVuFkpwHoGSeFY0Zrdf1Yj_tMnfjhjyKN9K7_afwrRWpCzmnVxXWZajjit1VBB_RQBvda89VjSvCwv90m7Ku0y2HSpB0i2ESUNCKE2uWIzRsO41n7vpE443qBVeSiaeNz3eqWlnjzWvo0F5b8P87h_GSF6iJ_LI8n-S_kPEYVnFJl47sS_OG08YSvw402_LUqEwuGf13964CfvyGLJNIHcsU7CNFONUwzJE8jblwPmcLQ1Zrf-ARTRKeNdUXrhClAMRps6lm0j4ld9vTp4pAZGStrOBPQApXRBPZvJZtN86WudjzrPVFZUeQGXMQgfOE-GXjFRa0dhQ683eD9o6Ia2ybqgIuqN6W96VFasXmIoJXNzFZPVWf-8bW0UzliIASvTBUbQT4iqzPoIBgqzh6u3g_prUjJo8i19iGAS1IGnKlGS9skQ_HrD1VvZmHHEkSk2p9e0alabzTadf7_imVWBU3dw_Zl-2ND9V5EHdk1FnuRZnvZ6FW0gwXPGyompEWt5S2_gS4HtEFNZBmond6q3sCuvSQyd2Rd444dusc0_i-I0kJcpBOoIFgERVgEgszlU7NPXHCaDgCxLaVBZdq1gpZZnoOxXc0sIJ_WyMX6tkjBloU7Nbdae8ANKxWI9skW5BZQi0rhv9jjJyVlA1vRM6s0P8i7C3NZMCxuPJz0IcO6-YGk8LsPuXYvkqeTFRS4Ka9DW-8lQDcERpuosuPlEhQ66T8Zyye7-l5o3sqtVfNJTQDzLOk9fa4cNFDndHNmTInZqAI4CBhW-L5zio5G1kmt7jkGxCpjrzLkVhGqhgvPPljnpw7YhZRR8-h8M_ToKiatQuxh3WSWL3T6FDvkrkfizqLSXV4OnZb1imqrN1hmq6LGa9Xbk5gdoT0I3uyOTk1ak0OxsWQ4WcsPbjmS3EB-5wP5GH9XfGtwUBaoieIdxwyOuV-X8LgBUqUsbg2VyT2EcPH49_ybkFJV3d5za_WfjbAmlooLFlcZDJD6gHW8W_2HtXLiBAtU2GGVA4GRyG998mHixRIqLR4GyH9x8vsVZTd9_s-8Ew_S2D_EY_yiCvj3ztT5G3ayDewfnV669Lv_UYXuWFbE7cBhTGy3z0LdslH-fD5jG3tvoFZSNhTWsN7L8hcwNIwEDEchFP7-hzzRFU5tn8p-TxjtdcR2bcRbL_SuLxCqXaFC9DX7nO13jR9iPi-K8LwfFCAKB8SmN8z465SJ2SN5G275MLt6-bGi0ZdCwRmYExNWm8k3YkLVewK1LS9Y_B0IGye02se6L5CGhc_kSsGpNMzfJFsI11IrUz8MdfhCYbKnCHPKXx03T3N6QzH25jAb0DUef6v1NPPZDseCxAUB8sYBAZOnks-ww0pApG8JLdZzrn6rpR_-zotwrKlgvpl2JxeNfveDibMF-hbLFXJWqQJCZmImEyom5f5yVjXAmF6HWeK2gplN_gAWeyaidYbeFx7KRbkmu4RzL0jvdgUdlTXOqwUY9_v65QQ1V5TmTtkvsv_jTwVNvrVTB_laS7E1xxm_)
+
+```
+@startuml
+!define C4P https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master
+!includeurl C4P/C4_Container.puml
+
+System_Ext(sensor, "Датчик температуры + модуль управления", "Отправляет данные о температуре и реагирует на управляющий сигнал")
+System_Ext(iotDeviceDCdrive, "IoT устройства - привод", "Отправляет статус о своем состоянии и реагирует на управляющий сигнал")
+System_Ext(iotDeviceLight, "IoT устройства - лампы", "Отправляет статус о своем состоянии и реагирует на управляющий сигнал")
+System_Ext(camera, "Камеры наблюдения", "Отправляет статус о своем состоянии, запись и отправка видео-потока, и реагирует на управляющий сигнал")
+Person(user, "Пользователь", "Взаимодействует с системой через веб-интерфейс для управления устройствами или получения информации о их статусе")
+
+System_Boundary(system, "Теплый Дом v2.0") {
+    Container(apiGateway, "API Gateway", "Управляет входящими запросами, аутентификацией, балансировкой и маршрутизацией", "HTTP")
+    Container(systemV1, "Теплый дом v1.0", "Сервис с бизнес-логикой, управление пользователями, платежами и прочим", "HTTP")
+    Container(heatingService, "Сервис отопления", "Микросервис управления отоплением", "HTTP")
+    ContainerDb(heatingDb, "БД отопления", "PostgreSQL")
+    Container(lightService, "Сервис освещения", "Микросервис управления освещением", "HTTP")
+    ContainerDb(lightDb, "БД освещения", "PostgreSQL")
+    Container(gateService, "Сервис ворот", "Микросервис управления воротами", "HTTP")
+    ContainerDb(gateDb, "БД ворот", "PostgreSQL")
+    Container(videoSurveillanceService, "Сервис видеонаблюдения", "Микросервис управления камерами", "HTTP")
+    ContainerDb(videoDb, "БД видеонаблюдения", "PostgreSQL")
+    Container(userProgramService, "Сервис пользовательских программ", "Микросервис управления программами и триггерами", "HTTP")
+    ContainerDb(userProgramDb, "БД программ", "PostgreSQL")
+    Container(kafka, "Kafka Cluster", "Шина данных для асинхронной передачи сообщений", "Kafka")
+    Container(monitoringService, "Сервис мониторинга", "Следит за состоянием системы", "Prometheus, Kafka")
+    ContainerDb(monitoringDb, "БД мониторинга", "PostgreSQL")
+    Container(analyticsService, "Сервис аналитики", "Обрабатывает данные для отчетов", "HTTP, Kafka")
+    ContainerDb(analyticsDb, "БД аналитики", "PostgreSQL")
+    Container(notificationService, "Сервис нотификации", "Отправляет уведомления пользователям", "HTTP, Kafka")
+    ContainerDb(notificationDb, "БД нотификаций", "PostgreSQL")
+    Container(olapStorage, "OLAP хранилище", "Хранит данные для аналитики", "Clickhouse/ScyllaDB")
+    Container(antiCorruptionLayer, "ACL", "Переход от v1 к v2 и обеспечение стабильности", "HTTP")
+    Container(mobileApp, "Мобильное приложение", "Пользовательский интерфейс для управления устройствами", "HTTP")
+    Container(webApp, "Веб-сайт", "Пользовательский интерфейс для управления устройствами через браузер", "HTTP")
+}
+
+Rel(sensor, apiGateway, "Отправляет телеметрию", "HTTP")
+Rel(iotDeviceDCdrive, apiGateway, "Отправляет статус и команды", "HTTP")
+Rel(iotDeviceLight, apiGateway, "Отправляет статус и команды", "HTTP")
+Rel(camera, apiGateway, "Отправляет данные и реагирует на команды", "HTTP")
+Rel(user, mobileApp, "Взаимодействует через мобильное приложение", "HTTP")
+Rel(user, webApp, "Взаимодействует через веб-сайт", "HTTP")
+Rel(mobileApp, apiGateway, "Запросы управления", "HTTP")
+Rel(webApp, apiGateway, "Запросы управления", "HTTP")
+
+Rel(apiGateway, systemV1, "Передача запросов", "HTTP")
+Rel(apiGateway, heatingService, "Передача запросов", "HTTP")
+Rel(apiGateway, lightService, "Передача запросов", "HTTP")
+Rel(apiGateway, gateService, "Передача запросов", "HTTP")
+Rel(apiGateway, videoSurveillanceService, "Передача запросов", "HTTP")
+Rel(apiGateway, userProgramService, "Передача запросов", "HTTP")
+Rel(apiGateway, monitoringService, "Передача запросов", "HTTP")
+Rel(apiGateway, analyticsService, "Передача запросов", "HTTP")
+
+Rel(notificationService, kafka, "Публикует уведомления", "Kafka")
+Rel(kafka, notificationService, "Слушает события", "Kafka")
+
+Rel(heatingService, kafka, "Отправляет события", "Kafka")
+Rel(kafka, heatingService, "Слушает события", "Kafka")
+Rel(lightService, kafka, "Отправляет события", "Kafka")
+Rel(kafka, lightService, "Слушает события", "Kafka")
+Rel(gateService, kafka, "Отправляет события", "Kafka")
+Rel(kafka, gateService, "Слушает события", "Kafka")
+Rel(videoSurveillanceService, kafka, "Отправляет события", "Kafka")
+Rel(kafka, videoSurveillanceService, "Слушает события", "Kafka")
+Rel(monitoringService, kafka, "Отправляет события", "Kafka")
+Rel(kafka, monitoringService, "Слушает события", "Kafka")
+Rel(analyticsService, kafka, "Получает данные", "Kafka")
+Rel(userProgramService, kafka, "Отправляет события", "Kafka")
+Rel(kafka, userProgramService, "Слушает события", "Kafka")
+
+Rel(analyticsService, analyticsDb, "Чтение и запись данных", "SQL")
+Rel(notificationService, notificationDb, "Чтение и запись данных", "SQL")
+Rel(monitoringService, monitoringDb, "Чтение и запись данных", "SQL")
+Rel(heatingService, heatingDb, "Чтение и запись данных", "SQL")
+Rel(lightService, lightDb, "Чтение и запись данных", "SQL")
+Rel(gateService, gateDb, "Чтение и запись данных", "SQL")
+Rel(videoSurveillanceService, videoDb, "Чтение и запись данных", "SQL")
+Rel(userProgramService, userProgramDb, "Чтение и запись данных", "SQL")
+Rel(analyticsService, olapStorage, "Чтение и запись данных", "SQL")
+
+Rel(antiCorruptionLayer, systemV1, "Передача запросов", "HTTP")
+Rel(antiCorruptionLayer, heatingService, "Передача запросов", "HTTP")
+Rel(notificationService, user, "Отправка уведомлений", "Push/SMS/Email")
+@enduml
+```
 
 **Диаграмма компонентов (Components)**
 
-[сильно упрощенная диаграмма компонентов в модели C4](https://www.plantuml.com/plantuml/uml/pLbTRnD757tFhnZoKf08AHLFVQ8OYNuaLI229oGqs4koOhrhhTT1KLK99wLGXIQjr8UgGg2sglhQEDbc4spdBypyezvxxNKclZlPR3PEGIBspioUU-wPEVCnljcCP1YrwjxKfPhpnFKTKRcn89QZgD7yT7OsbC-kBRdHSkjng-c4rS2F73-wLWtgimrF-lZQJ3EgUUxZsSgDcGKikZy_DrkNpSW9fowvVjLhrPnMw24eD7bK2UgDm4UC1eQSgW2YXA3Xerj1ow_9SFLoSnLUhbyLq-eF5Qj3zLvlg7sXVb5zrHKhdrpxUFgA-6PAmByHs6NPSE_8o7acL-6zpnQ-4CEdQNXSR8IkloHk1K64Z-gD-aS_rw_W_xfUKudQW-VlLQAt17vLX_gvwkisHEjS5L25ZMBLmwRwEsX-a3Q7scre_nx-zw1zWk-f3jOBrOF27OoWzg0WcRx2-3OUN0Soy2bMhYEjB-MAdBObVHsIPX1-v5Q2C6mr8ZVmv-Ig4sBkbRbZQByIynZ9ZDBKRG6ieGnAWBSWycrgreLu-yDGz2UZVvOT6O6Wyq6jvJaaABoqgzU1ysi17uSOIdKeH6-WQn_0--emBS90equybbKAlkY4AswLqFyS1rHnDY0qlXDGqZzZhq9vhDipqAGFcIQ3Vja5abj5IEPIl2qZ-LWsaUhdWmenh15f5N9Q29hHKkWitfqZXdzH-DvHGhlqsDCR-WKmKTkSJd8ACXLPNSvYWkL4uvvJSvl4u3Vzetvr4cHb_ZPsVXXudXCQc50kZYeCrT-gRSmAJQ7NOFXsu7kiruGwm45C-UtgZVCItsy68GgSoN5GJHrGa6kYUk3oFbHsXtxP97BOGzZq9Ouaz3cZhBU6XByzqJsUkxGS5VDE6mfY_KEkTmWwtpaShfnpB1Ij19blvh3uV5p3g2IvHD0Rd4KXnn3Sk5y8hxnRoWjkyGhnkoYdf7IBE6L9HauHetIG33A0YgvAB2P1r1oFCAIo_c3CRBoODN0RSq7EO3JG0en38LyWsBWj4AsiAqhAR344Chi8FnX4nKD1YIHOf7QnzbJMM75hJh3O2bSSr_EaNxNu150JG8sXg8UKeN2JdaamYq4OziMxnKhQEj5nqinA3x29CDkSax5EufiKOelcibCjx3yMXvcH1ofhpKdsQKNMdL2IR_EIe9Rdw-836jwnVYxC70gjQ7Y4NWY3fL3MBOOzL7ty0gxf8oSya-6pRkCf4aOSQei-8l9TsqxG36IuztTaZrsXsyKZfU9bpm8vU3WlC4Jy2yKpWWxRU-Gi0hjA2kE9b5xOH-cXh0FzH56Ex8YgdvIyOV_xK2g6nKKCNroeT2JOHe4VHEuJjohns6uP1ZtL7xzlKFkMlZRXB9sTYPUOFOex0rf_khbzgcAaaaF44Fvhe_ZiCsswO72YU15pU-vkhkprm7UZ8BJUN01Yd_3MqFuu4U05IRRe1bYsv1OqG_8tl9wCeDjKj3L8xTZTZDx09FEv6EBFZ-fEizYz0oQeRAp-rUj4uoKE7UWC_UA4ticLNlhIMutSQjEYF2BXHHggaQ2jBAgFS6oYSo1CSZLQ3lo7Gzr_IfkelR4XbWYrG_d5nbqP6WTKY07Gt9oDtSKzbK-UIa3_2Zz5nMlXzUTqMf2kEAHiZtePTmv7no6Q1mUweoZfaehs8yMD7Is4_aX0qXruQ-zqRqtTSxnZ5wHq-LZi9XJ0XVrcSXY1K3Ek9Kk4OZU_F9b9nSFKX4fiSVb5PS6GtP43DWlSYN4YTCQVB0r-sS1fuC5gWYpOAOCpuBlgYT4nTeDMEdmFLf98tXOhSuELGOnl6CeomocLXkj8gGEzdhbOg_qCGdmnBKN7jlRom7mzAHStOnsReg2PanIRGMJLIryOhxF-vg3-rckfBsS736d3y7fyXSv7nQDbQSXq9LHlpT40muCqszORA0rEidsssr49t-rGZECp73sL5CAEY2AKW9kK1CTcLtmeAG33Av4-WKqqU_lCpchEAaY14AXHQVp92fQrzXXbPn29mJBwx_GwNegOlv2VTmgMNoRft98W6b3OLKcwCE9iJ1kOCM7D6ojyxA7OQuInetPmKMTBAVAoqYBxVsYaq9GV6YTkfV-9837Ct0UPXMUr2GSkvfEKOCQ-o7xMfwFmDcvuw4muLE40AN6eCnBY-wLHoHcrCY0vBzMdB69abtdnm6dUTFnQg-xz1m00)
+[сильно упрощенная диаграмма компонентов в модели C4](https://www.plantuml.com/plantuml/uml/hLPRJzj867tthnZoiY01MQrusYUM8B6h1Ia5zHaDYKai73lo1OGg999Ue0ebAkfJLO7QgkehkKIO9ax-mim_wfalCH3PfK60X1D_bpDdpZV7pgBhSSVpIwOsbTUt3KjdcOKiAtfUsVqxdNRutdp1y8h-bk_gJiwsFDtovdDsALqskQNQvbmlRnfRwSp2N5Q5dg-jfalSzNH7cpAidEddTTyn5IXADZDsgMnR2gEibjGoGEHOrDbSidqhpvtzQNSVpQLPbX9VH4SCH5VMn3KJ7qHVzDZkN_D_fcRO2utXxmPicfUD5UxfUtmVVVza_sEZknHkDygEOHNOacrxwbPy4fVoK1xZ_wMiYa1SuVwD26ITgQzY80z5NrQmMdEM8OKYq0XLgNo5yXzHER8Dr7Vn7w8-G1zwL9w94C6MMa5S8H2aPeWlNH9sNDIv1ufhTjutTQ88f3QQk_A4uKDHkWHqLn4Xfc1OHSqW2k7Qkv5bJ9e8V4DtTeqSeNyT0wJkP40KhzYasNkb4-8TMPaJNHIs4A2Tja6o_X2IlwMup3s-nLr5zTzXWeqoB4efJbdRzGgEll5ibHX-e-N3smsrwJQKDVaQJ4GZJYUOW4o6vuf9J5ISQAphUSCb1X_bEtby7sHcRLaDtx5DKtVkO2BERXDtL3yN3TeLZfcimWLDVE_8AeFoy0BjhorhJoM-vTgE4ZYHup1D0tWWrq24y4qVoTx8EQT43XEYqYCwIN1EZBAi9nBUuTix74l-Zq-GCNtN0vCe4971QW1XPEG-kBsDC9681d-W7MZQ7qny5at4hqJ0G3jKZWVRW8tPKblNpR77JDnNapzOC4467f79JnyqGX29cVgN3XBVPJNgJWzf0BiYJyOCCWagMU7HaD7mn3b0eYsh1ma9qq2dKkuQUwS8OAkureT-LQ60Gb12rkvb7NERE9Cri8NwO_vvEkaJ_ICk0DF5WJXAVZ9DxWGwgMUaTp0yEyXTanfDmfKL0D4xfqKLGRJF0QxXy1s6vbvCnuIZdQpWXUX0gOwY2xANOpg2O0pcCSgCyDIlZgnZ5nnUkd_0yICruPWPwOCtxV1mg4aWZtjP0K2WPaJE5Irgxz51MDIjlFhzyXC0)
+
+```
+@startuml
+!define C4P https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master
+!includeurl C4P/C4_Component.puml
+
+Container_Boundary(system, "Теплый Дом v2.0") {
+    Component(apiGateway, "API Gateway", "Spring Boot", "Маршрутизация запросов, аутентификация, балансировка нагрузки")
+    
+    Container_Boundary(heatingModule, "Модуль управления отоплением") {
+        Component(heatingService, "Управление отоплением", "Go", "Бизнес-логика для управления отоплением")
+        Component(heatingServiceDatabase, "Heating Service Database", "PostgreSQL", "Хранение данных об отоплении")
+        Component(heatingServiceCache, "Heating Service Cache", "Redis", "Кэш")
+        Component(heatingCMDController, "Heating CMD Controller", "Go", "Обрабатывает команды управления отоплением")
+        Component(heatingSensorDataController, "Heating Sensor Data Controller", "Go", "Обрабатывает информацию от датчиков отопления")
+        Component(kafka, "Kafka Cluster", "Kafka", "Обмен сообщениями")
+    }
+}
+
+' Связи внутри heatingModule
+Rel(apiGateway, heatingService, "Маршрутизация запросов к модулю управления отоплением")
+Rel(heatingService, heatingServiceDatabase, "Чтение/запись данных")
+Rel(heatingService, heatingServiceCache, "Чтение/запись данных")
+Rel(heatingService, kafka, "Отправка событий о состоянии системы")
+Rel(heatingService, heatingCMDController, "Вызов команд управления отоплением")
+Rel(heatingService, heatingSensorDataController, "Получение данных от датчиков отопления")
+
+' Взаимодействие с другими компонентами системы
+Rel(apiGateway, heatingCMDController, "Передача команд")
+Rel(apiGateway, heatingSensorDataController, "Получение данных")
+Rel(userProgramService, heatingCMDController, "Отправка команд управления от пользовательских программ")
+@enduml
+```
 
 **Диаграмма кода (Code)**
 
 [упрощенная диаграмма кода (последовательности) в модели C4 -  отправка данных температуры сенсором и их обработка](https://www.plantuml.com/plantuml/uml/TLBBIiD05DtFLroozmTSI7s0YXiX_i0GHmrgMjkfuguFr48L4LoAq3yOYiLGJV8Bz_wH9ucXfDP5ClSnvznpJzBeMDsstSiBfGFRR9DleWuEtI5VjT09Wx2b8qlUvk4-xMfhRlIjbxUHro_mX6VIuod7qYSPSeR48VtY6ISeFXEdCk2Kiwg4ztV1jMUq3QDJtxIlmy3KQBTrS5Qlx6ofgwxf6ZhG9-SQy38uQhR2G2cVrZPoRUl4xvXMYOXb88_47qWIJcJCCq8NypahL3lqXzAJiG8M54kImFR63lqHdY6GCNyYlo_NGbWCIgNFJjMHu2ft0CK4D-uAGKbb0C08d3miJ9eIp-L9Hd-9iFf_B02zyEiAoCAR9KVcx7BOxnU9UKuUpZIl5mkLQbQRvAc6YOxnq_m0)
+
+```
+@startuml
+actor Sensor as S
+participant "API Gateway" as API
+participant "Сервис управления отоплением" as HeatingService
+participant Cache
+participant DB
+queue Kafka as KafkaTopic
+
+S -> API: Отправить данные температуры
+API -> HeatingService: Маршрутизация запроса
+HeatingService -> Cache: Сохранение значения в кэш
+HeatingService -> DB: Сохранение в БД
+HeatingService -> KafkaTopic: Отправка в топик "показания температуры"
+@enduml
+```
+
 [упрощенная диаграмма (последовательности) в модели C4 - обработка события сенсора температуры модулем пользовательских программ](https://www.plantuml.com/plantuml/uml/hLJBojf05DxFKmnPjT2-W8iYT5Ce1Udb0O9E9TIBZKdNNXPjKHIwBYrz0uq6ez7u2kUyKR_3Q9kHBEJdHynavinybsyEgGyZFupYRaSDC0RDOE3t8lrXQC96s6-7VlUT2Ry4JQFzONbLVOvDRFHh_-Cd7oNxyhu_29eEZaT_AEKH9PJnMFEKpfYiCCqffHCMbveAdb11v-iIdaTF85yPFmfwxGl_3UnF7Da2B-Vv_R2Q4arRh1ufBLEywRVYZb6gv4y_Vr7oLDFqMmW11nzqe9Mc4nwM0k07xM4if48x_Aq6bC6AGYhoUC9J7l7CK_-1XQR4Uk79iV7hLRO6OO7Vch__C_T4sCKqPS07-hDABf69JIWaFEDl677iwQrDD-UQRhzjlDHoWdQWJMesocl26Q3To7d92sZBQ0-f63R2GZac6db8s9A7nBvNBXVOtIi0rwzRBWU4fvMthHoKAbFq0o0xIcmuq0OQczAOLjRjMP87deFfQ2q5zpY8Jeivrj58S8gNr3QiqzcqleUkwf9Isb21muB1Cq1WdziF3zDakNbkMqQ4KOhvmegj579qP52cwgRNmdVeBm00)
+
+```
+@startuml
+participant UserProgramService as UserProgram
+queue Kafka as KafkaTopic
+participant "Сервис управления отоплением" as HeatingService
+participant "Модуль управления отоплением в доме" as HeatingModule
+
+UserProgram -> KafkaTopic: Подписка на топик "показания температуры"
+KafkaTopic -> UserProgram: Получение сообщения (например, температура превышена)
+UserProgram -> HeatingService: gRPC вызов: отправить управляющий сигнал с командой
+HeatingService -> HeatingModule: Отправить команду управления
+HeatingModule -> HeatingService: Возврат статуса выполнения
+HeatingService -> UserProgram: Возврат статуса выполнения
+HeatingService -> KafkaTopic: Отправка уведомления об статуса выполнения управляющего события
+UserProgram -> KafkaTopic: Отправка уведомления пользователю об управляющем событии
+@enduml
+```
+
 [упрощенная диаграмма (последовательности) в модели C4 - просмотр пользователем информации об отоплениии](https://www.plantuml.com/plantuml/uml/dPFFJl9G4CNtzoachBvlmGkuCAW9wix4z06kzQfDj99obRX3Y7-C1XCtRep6DsWQ6uX0UOMPD_9ScagAii05X9cU-SsPGrfhMXtPivDZfNrx6f7ND17f9dcgWNxW1mqTMggixMpJfhQcfIygxZ7gic2zNYUvv5JQdF00lsAIBazGncWCEUKnse_4cNGuuqdHmlTeIWIWJEJt6Mr9rfRHDWWFTqrq7lYcXDtG_f5HogFggZjYXVWPLCVEi8O_K8nvBFToHG1dFtP8Js4CqyumfbyubhRSujE5SC1zrDUvk_uCpB6275Dprlwolam0Cxy9g3SeX_1nKyH1m7rA1-75UF2GWqjRb9i5v3TdJy3rEN6nozqIo7c3trczufQ4K-bGwLOUyM3HjNbinN-ro59MW94pXDC1Rx5yFcLt27GP634OAUeU_UE4McQl6eJMH0VQD_zLpOJxU5E-0000)
+
+```
+@startuml
+actor User as U
+participant "API Gateway" as API
+participant "BFF сервиса управления отоплением" as BFF
+participant "Сервис управления отоплением" as HeatingService
+participant Cache
+
+U -> API: Запрос данных по отоплению
+API -> BFF: Маршрутизация запроса
+BFF -> HeatingService: Запрос данных по отоплению
+HeatingService -> Cache: Получение актуальных данных
+Cache --> HeatingService: Возвращение актуальных данных
+HeatingService --> BFF: Ответ с данными по отоплению
+BFF --> API: Возвращение ответа
+API --> U: Возвращение данных пользователю (в web-interface)
+@enduml
+```
 
 # Задание 3. Разработка ER-диаграммы
 
 [ER-диаграмма](https://www.plantuml.com/plantuml/uml/jLCnRiCm3Dpz2i5Z0N-WKuOCxT2foHom5fi8i2H3f5iOIVzUcHmS2Huwf1jvTpWT2Mf738adFpGD1dOyc_P8c5e3P9R2N1jZdeopvjaSZwzxwG9upFqx9nVEWg07DvJG24JVCTbxjEk4wXC2epq1PtAVouFpACmqsWtcPmtt4YT2IIVLPhoCfrC9WRK9YOg4EiP3q-tno_KQJylDV3oFMEMxv65gZ30v64vXyX-OokJ4m1FzH_R3F6h-jVtZ2LYaFhcHNGmhSUV_5kqqgBUM3_8zu80UESrvA13x0jbynSfmrRxPUIG6FzQhiy1GF2qVutRhkdZLCyniUm5g6-sKqXKAryV0u48MAAQAsxfaKJaoyLEkezBfmaIJxIkNQpLl5fqnO09UbCqEWrs-zoy0)
+
+```
+@startuml
+entity "User" as User {
+  * id : UUID
+  * name : String
+  * email : String
+  * password : String
+  --
+  * created_at : DateTime
+  * updated_at : DateTime
+}
+
+entity "House" as House {
+  * id : UUID
+  * user_id : UUID
+  * address : String
+  * name : String
+  --
+  * created_at : DateTime
+  * updated_at : DateTime
+}
+
+entity "Device" as Device {
+  * id : UUID
+  * type_id : UUID
+  * house_id : UUID
+  * serial_number : String
+  * status : String
+  --
+  * created_at : DateTime
+  * updated_at : DateTime
+}
+
+entity "DeviceType" as DeviceType {
+  * id : UUID
+  * name : String
+  * description : String
+}
+
+entity "Module" as Module {
+  * id : UUID
+  * name : String
+  * description : String
+}
+
+entity "TelemetryData" as TelemetryData {
+  * id : UUID
+  * device_id : UUID
+  * timestamp : DateTime
+  * data : String
+}
+
+User ||--o{ House : "has"
+House ||--o{ Device : "contains"
+Device ||--o| DeviceType : "is of type"
+Device ||--o| Module : "uses"
+Device ||--o{ TelemetryData : "generates"
+@enduml
+```
